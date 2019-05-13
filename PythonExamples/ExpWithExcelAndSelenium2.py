@@ -14,6 +14,7 @@ import string
 
 testPlanName = sys.argv[1]
 buildUrl = sys.argv[2]
+executiondate=sys.argv[3]
 
 
 print("Execution Started")
@@ -46,6 +47,7 @@ rowNum=ws.max_row+1
  
 ws.cell(column=1, row=rowNum, value=testPlanName)
 ws.cell(column=2, row=rowNum, value=txtTimeElapsed)
+ws.cell(column=3, row=rowNum, value=executiondate)
 wb.save(filename)
 
 print("Execution Completed")

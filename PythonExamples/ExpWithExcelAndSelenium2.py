@@ -15,6 +15,7 @@ import string
 testPlanName = sys.argv[1]
 buildUrl = sys.argv[2]
 executiondate=sys.argv[3]
+buildUser=sys.argv[4]
 
 
 print("Execution Started")
@@ -40,7 +41,14 @@ txtTimeElapsed=txtTimeContent.splitlines()[-1]
 print(txtTimeContent)
 print("Total Time: "+txtTimeElapsed)
 
-filename = 'D:\ECLIPSE PROJECTS\TestRepoOne\PythonExamples\hello.xlsx'
+driver.get(buildUrl+"logText/progressiveText?start=0")
+
+txtContent=str(driver.find_element_by_tag_name("pre").text)
+txtContentLastLine=txtContent.splitlines()[-1]
+txtBuildStatus=txtContentLastLine.split()[-1]
+print("Build Status: "+txtBuildStatus)
+
+filename = 'D:\\ECLIPSE PROJECTS\\TestRepoOne\\PythonExamples\\hello.xlsx'
 wb = openpyxl.load_workbook(filename)
 ws = wb.active
 rowNum=ws.max_row+1
@@ -48,6 +56,8 @@ rowNum=ws.max_row+1
 ws.cell(column=1, row=rowNum, value=testPlanName)
 ws.cell(column=2, row=rowNum, value=txtTimeElapsed)
 ws.cell(column=3, row=rowNum, value=executiondate)
+ws.cell(column=4, row=rowNum, value=txtBuildStatus)
+ws.cell(column=5, row=rowNum, value=buildUser)
 wb.save(filename)
 
 print("Execution Completed")
